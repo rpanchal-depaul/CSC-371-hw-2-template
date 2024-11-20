@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "57F71977-7039-4DC4-B316-642D6AE6EC0D",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:HW2.xcodeproj",
+        "identifier" : "0DA397BA2B51CDE0003366DF",
+        "name" : "HW2LibTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='HW2LibTests.xctest' tests='4' failures='1'>
+  <testsuite name='HW2LibTests.HW2LibTests' tests='4' failures='1'>
+    <testcase classname='HW2LibTests.HW2LibTests' name='test1' time='0.002'/>
+    <testcase classname='HW2LibTests.HW2LibTests' name='test2' time='0.001'/>
+    <testcase classname='HW2LibTests.HW2LibTests' name='test3' time='0.001'/>
+    <testcase classname='HW2LibTests.HW2LibTests' name='test4'>
+      <failure message='XCTAssertTrue failed'>HW2LibTests/HW2LibTests.swift:26</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
