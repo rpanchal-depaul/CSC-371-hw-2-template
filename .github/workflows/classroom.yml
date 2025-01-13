@@ -1,0 +1,253 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: macos-13
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build project
+      run: xcodebuild build -project HW2.xcodeproj -scheme HW2Lib -destination 'platform=macOS'
+    - name: testEmptyArrayShouldReturnUnknownIndex
+      id: testemptyarrayshouldreturnunknownindex
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testEmptyArrayShouldReturnUnknownIndex
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/BinarySearchTests/testEmptyArrayShouldReturnUnknownIndex | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 10
+
+    - name: testSingleElementArrayShouldReturnProperIndexOnMatch
+      id: testSingleElementArrayShouldReturnProperIndexOnMatch
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSingleElementArrayShouldReturnProperIndexOnMatch
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/BinarySearchTests/testSingleElementArrayShouldReturnProperIndexOnMatch | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 10
+
+    - name: testSingleElementArrayShouldReturnUnknownIndexOnNoMatch
+      id: testSingleElementArrayShouldReturnUnknownIndexOnNoMatch
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSingleElementArrayShouldReturnUnknownIndexOnNoMatch
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/BinarySearchTests/testSingleElementArrayShouldReturnUnknownIndexOnNoMatch | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 10
+
+    - name: testUnsortedArrayShouldReturnUnknownIndex
+      id: testUnsortedArrayShouldReturnUnknownIndex
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testUnsortedArrayShouldReturnUnknownIndex
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/BinarySearchTests/testUnsortedArrayShouldReturnUnknownIndex | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 10
+
+    - name: testSortedArrayShouldReturnUnknownIndex
+      id: testSortedArrayShouldReturnUnknownIndex
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSortedArrayShouldReturnUnknownIndex
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/BinarySearchTests/testSortedArrayShouldReturnUnknownIndex | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 10
+
+    # Fraction
+
+    - name: fractionBuild
+      id: fractionBuild
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: fractionBuild
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination 'platform=macOS' -only-testing:HW2LibTests/FractionTests
+        timeout: 10
+        max-score: 5
+    
+    # Fraction - Addition
+
+    - name: testAdditionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testAdditionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testAdditionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testAdditionOperatorShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 0
+
+
+    - name: testAdditionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      id: testAdditionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testAdditionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testAdditionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 0
+
+    - name: testAdditionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testAdditionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testAdditionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testAdditionMethodShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 0
+
+    # Fraction - Subtraction
+
+    - name: testSubtractionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testSubtractionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSubtractionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testSubtractionOperatorShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    - name: testSubtractionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      id: testSubtractionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSubtractionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testSubtractionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    - name: testSubtractionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testSubtractionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testSubtractionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testSubtractionMethodShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    # Fraction - Multiplication
+
+    - name: testMultiplicationOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testMultiplicationOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMultiplicationOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testMultiplicationOperatorShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    - name: testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      id: testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    - name: testMultiplicationMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testMultiplicationMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testMultiplicationMethodShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    # Fraction - Division
+  
+    - name: testDivisionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testDivisionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testDivisionOperatorShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testDivisionOperatorShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+    - name: testDivisionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      id: testDivisionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testDivisionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testDivisionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+
+
+    - name: testDivisionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      id: testDivisionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: testDivisionMethodShouldReturnCorrectValueAndNotModifyLeftValue
+        setup-command: ''
+        command: xcodebuild test -project HW2.xcodeproj -scheme HW2Lib -destination
+          'platform=macOS' -only-testing:HW2LibTests/FractionTests/testDivisionMethodShouldReturnCorrectValueAndNotModifyLeftValue | grep -q "Executed 1 tests"
+        timeout: 10
+        max-score: 5
+    # Grading
+          
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TESTEMPTYARRAYSHOULDRETURNUNKNOWNINDEX_RESULTS: "${{steps.testemptyarrayshouldreturnunknownindex.outputs.result}}"
+        TESTSINGLEELEMENTARRAYSHOULDRETURNPROPERINDEXONMATCH_RESULTS: "${{steps.testSingleElementArrayShouldReturnProperIndexOnMatch.outputs.result}}"
+        TESTSINGLEELEMENTARRAYSHOULDRETURNUNKNOWNINDEXONNOMATCH_RESULTS: "${{steps.testSingleElementArrayShouldReturnUnknownIndexOnNoMatch.outputs.result}}"
+        TESTUNSORTEDARRAYSHOULDRETURNUNKNOWNINDEX_RESULTS: "${{steps.testUnsortedArrayShouldReturnUnknownIndex.outputs.result}}"
+        TESTSORTEDARRAYSHOULDRETURNUNKNOWNINDEX_RESULTS: "${{steps.testSortedArrayShouldReturnUnknownIndex.outputs.result}}"
+        FRACTIONBUILD_RESULTS: "${{steps.fractionBuild.outputs.result}}"
+        TESTADDITIONOPERATORSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testAdditionOperatorShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTADDITIONCOMPOUNDASSIGNMENTSHOULDRETURNCORRECTVALUEANDMODIFYLEFTVALUE_RESULTS: "${{steps.testAdditionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue.outputs.result}}"
+        TESTADDITIONMETHODSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testAdditionMethodShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTSUBTRACTIONOPERATORSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testSubtractionOperatorShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTSUBTRACTIONCOMPOUNDASSIGNMENTSHOULDRETURNCORRECTVALUEANDMODIFYLEFTVALUE_RESULTS: "${{steps.testSubtractionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue.outputs.result}}"
+        TESTSUBTRACTIONMETHODSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testSubtractionMethodShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTMULTIPLICATIONOPERATORSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testMultiplicationOperatorShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTMULTIPLICATIONCOMPOUNDASSIGNMENTSHOULDRETURNCORRECTVALUEANDMODIFYLEFTVALUE_RESULTS: "${{steps.testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue.outputs.result}}"
+        TESTMULTIPLICATIONMETHODSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testMultiplicationMethodShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTDIVISIONOPERATORSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testDivisionOperatorShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+        TESTDIVISIONCOMPOUNDASSIGNMENTSHOULDRETURNCORRECTVALUEANDMODIFYLEFTVALUE_RESULTS: "${{steps.testDivisionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue.outputs.result}}"
+        TESTDIVISIONMETHODSHOULDRETURNCORRECTVALUEANDNOTMODIFYLEFTVALUE_RESULTS: "${{steps.testDivisionMethodShouldReturnCorrectValueAndNotModifyLeftValue.outputs.result}}"
+
+      with:
+        runners: testemptyarrayshouldreturnunknownindex,testSingleElementArrayShouldReturnProperIndexOnMatch,testSingleElementArrayShouldReturnUnknownIndexOnNoMatch,testUnsortedArrayShouldReturnUnknownIndex,testSortedArrayShouldReturnUnknownIndex,fractionBuild,testAdditionOperatorShouldReturnCorrectValueAndNotModifyLeftValue,testAdditionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue,testAdditionMethodShouldReturnCorrectValueAndNotModifyLeftValue,testSubtractionOperatorShouldReturnCorrectValueAndNotModifyLeftValue,testSubtractionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue,testSubtractionMethodShouldReturnCorrectValueAndNotModifyLeftValue,testMultiplicationOperatorShouldReturnCorrectValueAndNotModifyLeftValue,testMultiplicationCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue,testMultiplicationMethodShouldReturnCorrectValueAndNotModifyLeftValue,testDivisionOperatorShouldReturnCorrectValueAndNotModifyLeftValue,testDivisionCompoundAssignmentShouldReturnCorrectValueAndModifyLeftValue,testDivisionMethodShouldReturnCorrectValueAndNotModifyLeftValue
